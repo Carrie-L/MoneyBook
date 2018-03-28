@@ -8,25 +8,31 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
-import com.carrie.lib.moneybook.model.Classify;
+import com.carrie.lib.moneybook.db.entity.ClassifyParentEntity;
+import com.carrie.lib.moneybook.model.ClassifyParent;
 
 import java.util.List;
 
 /**
- * Created by Carrie on 2018/3/27.
+ * Created by Carrie on 2018/3/28.
  */
 @Dao
-public interface ClassifyDao {
+public interface ClassifyParentDao  {
 
-    @Query("select * from classify")
-    LiveData<List<ClassifyEntity>> getAllClassifies();
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertItem(ClassifyEntity entity);
+    @Query("SELECT * FROM classifyParent")
+    LiveData<List<ClassifyParentEntity>> getClassifyParents();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<ClassifyEntity> list);
+    void insert(ClassifyParentEntity entity);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<ClassifyParentEntity> list);
 
     @Delete
-    void deleteAll(ClassifyEntity... classifies);
+    void delete(ClassifyParentEntity entity);
+
+
+
+
+
 }

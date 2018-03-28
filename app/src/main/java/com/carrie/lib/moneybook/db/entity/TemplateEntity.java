@@ -8,7 +8,7 @@ import com.carrie.lib.moneybook.model.Template;
 /**
  * Created by Carrie on 2018/3/27.
  */
-@Entity
+@Entity(tableName = "template")
 public class TemplateEntity implements Template {
     @PrimaryKey(autoGenerate = true)
     public int id;

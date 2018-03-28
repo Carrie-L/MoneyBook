@@ -1,7 +1,6 @@
 package com.carrie.lib.moneybook.ui;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ public class ClassifyFragment extends Fragment implements ItemClickCallback {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.activity_classify,container,false);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.activity_classify, container, false);
         LogUtil.i(TAG,"onCreateView");
 

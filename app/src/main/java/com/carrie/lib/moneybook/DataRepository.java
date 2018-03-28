@@ -22,6 +22,16 @@ public class DataRepository {
 
     public DataRepository(final AppDatabase database) {
         this.database = database;
+//        MediatorLiveData    mObservableProducts = new MediatorLiveData<>();
+//
+//        mObservableProducts.addSource(mDatabase.productDao().loadAllProducts(),
+//                productEntities -> {
+//                    if (mDatabase.getDatabaseCreated().getValue() != null) {
+//                        mObservableProducts.postValue(productEntities);
+//                    }
+//                });
+
+
     }
 
     public static DataRepository getInstance(AppDatabase database) {

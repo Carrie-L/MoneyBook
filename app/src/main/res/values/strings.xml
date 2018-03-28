@@ -14,5 +14,7 @@
     <string name="nav_account">账户类型</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <string name="cancel">取消</string>
+
 
 </resources>

@@ -1,10 +1,6 @@
 package com.carrie.lib.moneybook.ui;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,8 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.carrie.lib.moneybook.R;
-import com.carrie.lib.moneybook.databinding.ActivityHomeBinding;
-import com.carrie.lib.moneybook.viewmodel.MainViewModel;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,9 +18,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityHomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        MainViewModel mainViewModel = new MainViewModel(getApplication());
-        binding.setMainViewModel(mainViewModel);
+        setContentView( R.layout.activity_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,7 +39,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void showHomeFragment() {
         HomeFragment homeFragment = new HomeFragment();
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, homeFragment, HomeFragment.TAG).commit();
     }
 

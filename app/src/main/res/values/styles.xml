@@ -13,6 +13,24 @@
         <item name="android:layout_height">48dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
+        <item name="android:theme">@style/edit_text_theme</item>
+    </style>
+
+    <style name="edit_text_not_editable_style" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:textColorHint">@color/light_green_500</item>
+        <item name="android:theme">@style/edit_text_theme</item>
+    </style>
+
+    <style name="edit_text_theme" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/light_green_500</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

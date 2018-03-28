@@ -9,16 +9,16 @@
 
         <variable
             name="callback"
-            type="com.carrie.lib.moneybook.ui.ItemClickCallback"/>
+            type="com.carrie.lib.moneybook.ui.ItemClickCallback" />
 
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
         android:onClick="@{()->callback.onClick(obj)}"
-        >
+        android:orientation="horizontal">
+
 
         <ImageView
             android:layout_width="wrap_content"
@@ -30,8 +30,9 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:gravity="center_vertical"
-           android:text="@{obj.classify}"
-            />
+            android:text="@{obj.classify}"
+           />
+
 
     </LinearLayout>
 

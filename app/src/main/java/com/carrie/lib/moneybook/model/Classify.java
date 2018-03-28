@@ -5,8 +5,11 @@ import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by Carrie on 2018/3/27.
+ * 子类别
  * 消费类型：水果、早餐、购物...
  */
 public interface Classify {
+    int getId();
+    int getParentId();
     String getClassify();
 }

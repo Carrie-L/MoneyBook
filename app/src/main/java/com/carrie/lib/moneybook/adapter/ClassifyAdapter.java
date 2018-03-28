@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.carrie.lib.moneybook.R;
@@ -63,6 +62,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
     @Override
     public ClassifyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemClassifyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_classify, parent, false);
+        binding.setCallback(mCallback);
         return new ClassifyViewHolder(binding);
     }
 
