@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MoneyBook</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="nav_home">首页</string>
+    <string name="nav_transaction">明细</string>
+    <string name="nav_classify">消费类型</string>
+    <string name="nav_account">账户类型</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+
+</resources>
