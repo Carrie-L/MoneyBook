@@ -55,8 +55,9 @@
                     android:drawablePadding="12dp"
                     android:focusable="true"
                     android:gravity="center_vertical"
+                    android:textColor="@color/colorAccent"
                     android:inputType="numberDecimal"
-                    android:text="qian"
+                    android:text="@string/pay"
                     />
 
                 <EditText
@@ -66,7 +67,6 @@
                     android:drawableLeft="@drawable/ic_classify"
                     android:drawablePadding="12dp"
                     android:hint="@string/nav_classify"
-                    android:focusable="false"
                     android:cursorVisible="false"
                     android:focusableInTouchMode="false"
                     android:onClick="@{()->clickCallback.onClick(null,1)}"

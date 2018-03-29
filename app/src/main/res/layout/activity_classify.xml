@@ -28,17 +28,10 @@
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/fab_margin"
             app:fabSize="normal"
-            app:srcCompat="@drawable/fab_ok"
-
+            app:srcCompat="@drawable/fab_add"
             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="home frag~~~~"
-            android:textColor="@color/light_green_500"
-            android:layout_centerInParent="true"
-            />
+
 
 
     </RelativeLayout>

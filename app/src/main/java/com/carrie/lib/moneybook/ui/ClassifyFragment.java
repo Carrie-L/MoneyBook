@@ -4,8 +4,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
 import com.carrie.lib.moneybook.utils.LogUtil;
 import com.carrie.lib.moneybook.viewmodel.ClassifyViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,13 +32,13 @@ public class ClassifyFragment extends Fragment implements ItemClickCallback {
     public static final String TAG = "ClassifyFragment";
     private ActivityClassifyBinding mBinding;
     private ClassifyAdapter adapter;
+    private List<ClassifyEntity> list = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.activity_classify,container,false);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.activity_classify, container, false);
-        LogUtil.i(TAG,"onCreateView");
+        LogUtil.i(TAG, "onCreateView");
 
         adapter = new ClassifyAdapter(this);
         mBinding.classifyRv.setAdapter(adapter);
@@ -46,8 +50,30 @@ public class ClassifyFragment extends Fragment implements ItemClickCallback {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ClassifyViewModel viewModel = ViewModelProviders.of(this).get(ClassifyViewModel.class);
+        ClassifyViewModel viewModel = ViewModelProviders.of(getActivity()).get(ClassifyViewModel.class);
         subscribeUI(viewModel);
+
+        mBinding.fabClassify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.i(TAG, "fab clicked");
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                Fragment fragment = getFragmentManager().findFragmentByTag("Dialog");
+                if (fragment != null) {
+                    transaction.remove(fragment);
+                }
+                transaction.addToBackStack(null);
+
+                ClassifyEditFragment editFragment = new ClassifyEditFragment();
+                editFragment.show(transaction, "Dialog");
+
+                Bundle args = new Bundle();
+                args.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
+                editFragment.setArguments(args);
+
+            }
+        });
 
     }
 
@@ -56,11 +82,14 @@ public class ClassifyFragment extends Fragment implements ItemClickCallback {
             @Override
             public void onChanged(@Nullable List<ClassifyEntity> classifyEntities) {
                 if (classifyEntities != null) {
+                    list = classifyEntities;
                     adapter.setClassifies(classifyEntities);
+
                 }
             }
         });
     }
+
 
     @Override
     public <T> void onClick(T t) {

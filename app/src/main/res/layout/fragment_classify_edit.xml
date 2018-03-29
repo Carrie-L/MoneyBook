@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.carrie.lib.moneybook.viewmodel.ClassifyViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/edit_text_style"
+            android:hint="@string/name"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_name"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/child"
+            android:textColor="@{viewModel.isSwithLeft.get()?@color/colorAccent:@color/textColorPrimary}" />
+
+        <ImageView
+            android:id="@+id/iv_switch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/et_name"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/tv_child"
+            android:onClick="@{()->viewModel.onSwitchClick()}"
+            android:src="@{viewModel.isSwithLeft.get()?@drawable/ic_switch_left:@drawable/ic_switch_right}" />
+
+        <TextView
+            android:id="@+id/tv_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_child"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/iv_switch"
+            android:text="@string/parent"
+            android:textColor="@{viewModel.isSwithLeft.get()?@color/textColorPrimary:@color/colorAccent}" />
+
+        <TextView
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/ok"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignTop="@id/ok"
+            android:layout_marginRight="16dp"
+            android:layout_toStartOf="@id/ok"
+            android:gravity="center_vertical"
+            android:text="@android:string/cancel"
+            android:textColor="@color/grey500" />
+
+        <Spinner
+            android:id="@+id/spinner_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/ok"
+            android:layout_below="@id/iv_switch"
+            android:layout_marginTop="16dp" />
+
+
+    </RelativeLayout>
+
+</layout>

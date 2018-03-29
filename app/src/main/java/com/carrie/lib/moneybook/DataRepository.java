@@ -53,5 +53,11 @@ public class DataRepository {
         return database.classifyDao().getAllClassifies();
     }
 
+    public List<ClassifyEntity> getParentClassifies(){
+        return database.classifyDao().getParentClassifies();
+    }
+
+
+
 
 }

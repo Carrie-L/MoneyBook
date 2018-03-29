@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="edit_text_style">
@@ -14,6 +15,8 @@
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:theme">@style/edit_text_theme</item>
+        <item name="android:textColorHint">@color/light_green_500</item>
+        <item name="android:textColor">@color/light_green_500</item>
     </style>
 
     <style name="edit_text_not_editable_style" parent="Theme.AppCompat.Light">
@@ -25,6 +28,7 @@
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:cursorVisible">false</item>
         <item name="android:textColorHint">@color/light_green_500</item>
+        <item name="android:textColor">@color/light_green_500</item>
         <item name="android:theme">@style/edit_text_theme</item>
     </style>
 

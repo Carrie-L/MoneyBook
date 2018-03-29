@@ -19,29 +19,56 @@ public class DataGenerator {
         String[] parents = {"衣", "食", "住", "行"};
         int length = parents.length;
         for (int i = 0; i < length; i++) {
-            list.add(new ClassifyParentEntity(i+1, parents[i], 0));
+            list.add(new ClassifyParentEntity(i + 1, parents[i], 0));
         }
         return list;
     }
 
+//    public static List<ClassifyEntity> generateClassifies() {
+//        List<ClassifyEntity> list = new ArrayList<>();
+//        String[] parents = {"睡衣", "鞋子", "早餐", "水果", "零食", "外卖", "房租水电", "公交", "地铁"};
+//        int length = parents.length;
+//        ClassifyEntity entity;
+//        for (int i = 0; i < length; i++) {
+//            entity = new ClassifyEntity();
+//            entity.id = i+1;
+//            if (i < 2) {
+//                entity.parentId = 1;
+//            } else if (i < 6) {
+//                entity.parentId = 2;
+//            } else if (i < 8) {
+//                entity.parentId = 3;
+//            } else {
+//                entity.parentId = 4;
+//            }
+//            entity.classify = parents[i];
+//            list.add(entity);
+//        }
+//        return list;
+//    }
+
     public static List<ClassifyEntity> generateClassifies() {
         List<ClassifyEntity> list = new ArrayList<>();
-        String[] parents = {"睡衣", "鞋子", "早餐", "水果", "零食", "外卖", "房租水电", "公交", "地铁"};
-        int length = parents.length;
+        String[] items = {"衣", "食", "住", "行", "睡衣", "鞋子", "早餐", "水果", "零食", "外卖", "房租水电", "公交", "地铁"};
+        int length = items.length;
         ClassifyEntity entity;
         for (int i = 0; i < length; i++) {
             entity = new ClassifyEntity();
-            entity.id = i+1;
-            if (i < 2) {
+            entity.id = i + 1;
+            if (i < 4) {
+                entity.isParent = true;
+                entity.budget = 0.00;
+                entity.parentId = i + 1;
+            }else  if (i < 6) {
                 entity.parentId = 1;
-            } else if (i < 6) {
+            } else if (i < 10) {
                 entity.parentId = 2;
-            } else if (i < 8) {
+            } else if (i < 12) {
                 entity.parentId = 3;
             } else {
                 entity.parentId = 4;
             }
-            entity.classify = parents[i];
+            entity.classify = items[i];
             list.add(entity);
         }
         return list;
@@ -52,7 +79,7 @@ public class DataGenerator {
         String[] parents = {"支付宝", "微信钱包"};
         int length = parents.length;
         for (int i = 0; i < length; i++) {
-            list.add(new AccountEntity( parents[i]));
+            list.add(new AccountEntity(parents[i]));
         }
         return list;
     }

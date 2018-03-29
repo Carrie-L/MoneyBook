@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.carrie.lib.moneybook.R;
 import com.carrie.lib.moneybook.adapter.ClassifyAdapter;
-import com.carrie.lib.moneybook.databinding.ItemClassifyBinding;
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
+import com.carrie.lib.moneybook.model.Classify;
 import com.carrie.lib.moneybook.viewmodel.ClassifyViewModel;
 
 import java.util.List;
@@ -74,8 +74,15 @@ public class ClassifyDialogFragment extends DialogFragment implements ItemClickC
         });
     }
 
+    private OnClickCallback mCallback;
+    public void setOnClickCallback(OnClickCallback callback){
+        this.mCallback = callback;
+    }
+
     @Override
     public <T> void onClick(T t) {
-
+        Classify entity = (Classify) t;
+        mCallback.onClick(entity.getClassify(),101);
+        dismiss();
     }
 }

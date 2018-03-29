@@ -18,8 +18,15 @@ import java.util.List;
 @Dao
 public interface ClassifyDao {
 
-    @Query("select * from classify")
+    @Query("select * from classify order by parentId")
     LiveData<List<ClassifyEntity>> getAllClassifies();
+
+//    @Query("select * from classify where isParent=1")
+//    LiveData<List<ClassifyEntity>> getParentClassifies();
+
+    @Query("select * from classify where isParent=1")
+    List<ClassifyEntity> getParentClassifies();
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertItem(ClassifyEntity entity);

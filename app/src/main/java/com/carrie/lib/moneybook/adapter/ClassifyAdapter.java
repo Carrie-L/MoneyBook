@@ -1,15 +1,19 @@
 package com.carrie.lib.moneybook.adapter;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.carrie.lib.moneybook.BR;
 import com.carrie.lib.moneybook.R;
 import com.carrie.lib.moneybook.databinding.ItemClassifyBinding;
+import com.carrie.lib.moneybook.databinding.ItemClassifyParentBinding;
 import com.carrie.lib.moneybook.model.Classify;
 import com.carrie.lib.moneybook.ui.ItemClickCallback;
+import com.carrie.lib.moneybook.utils.LogUtil;
 
 import java.util.List;
 
@@ -18,9 +22,13 @@ import java.util.List;
  */
 
 public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.ClassifyViewHolder> {
+    private static final String TAG = "ClassifyAdapter";
     private ItemClickCallback mCallback;
 
     private List<? extends Classify> mClassifies;
+
+    private static final Integer TYPE_PARENT = 0;
+    private static final Integer TYPE_CHILD = 1;
 
     public ClassifyAdapter(ItemClickCallback mCallback) {
         this.mCallback = mCallback;
@@ -61,14 +69,31 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
 
     @Override
     public ClassifyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemClassifyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_classify, parent, false);
-        binding.setCallback(mCallback);
-        return new ClassifyViewHolder(binding);
+        if(viewType==TYPE_PARENT){
+            ItemClassifyParentBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_classify_parent, parent, false);
+            binding.setCallback(mCallback);
+            return new ClassifyViewHolder(binding);
+        }else{
+            ItemClassifyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_classify, parent, false);
+            binding.setCallback(mCallback);
+            return new ClassifyViewHolder(binding);
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mClassifies.get(position).isParent()) {
+            return TYPE_PARENT;
+        }else{
+            return TYPE_CHILD;
+        }
     }
 
     @Override
     public void onBindViewHolder(ClassifyViewHolder holder, int position) {
-        holder.binding.setObj(mClassifies.get(position));
+        holder.binding.setVariable(BR.obj,mClassifies.get(position));
+//        ((ItemClassifyBinding) holder.binding).setObj(mClassifies.get(position));
         holder.binding.executePendingBindings();
     }
 
@@ -78,9 +103,9 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
     }
 
     static class ClassifyViewHolder extends RecyclerView.ViewHolder {
-        private ItemClassifyBinding binding;
+        private ViewDataBinding binding;
 
-        public ClassifyViewHolder(ItemClassifyBinding binding) {
+        public ClassifyViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

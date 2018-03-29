@@ -7,14 +7,18 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="pay">%s ￥</string>
+    <string name="name">名称</string>
+    <string name="parent">父</string>
+    <string name="child">子</string>
 
     <string name="nav_home">首页</string>
     <string name="nav_transaction">明细</string>
     <string name="nav_classify">消费类型</string>
     <string name="nav_account">账户类型</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
     <string name="cancel">取消</string>
+    <string name="ok">OK</string>
 
 
 </resources>

@@ -20,6 +20,7 @@ public class MainViewModel extends AndroidViewModel {
     private static final String TAG = "MainViewModel";
     public final ObservableBoolean isCardViewShow = new ObservableBoolean(true);
     public final ObservableField<String> date = new ObservableField<>(new Date().toString());
+    public final ObservableField<String> payMoney = new ObservableField<>("0.00");
 
     private OnClickCallback mClickCallback;
     public void setOnClickCallback(OnClickCallback callback){
