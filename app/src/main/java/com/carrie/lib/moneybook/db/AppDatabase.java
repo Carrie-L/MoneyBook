@@ -21,11 +21,8 @@ import com.carrie.lib.moneybook.db.entity.AccountEntity;
 import com.carrie.lib.moneybook.db.entity.ChargeEntity;
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
 import com.carrie.lib.moneybook.db.entity.ClassifyParentEntity;
-import com.carrie.lib.moneybook.model.Charge;
 import com.carrie.lib.moneybook.utils.DataGenerator;
 import com.carrie.lib.moneybook.utils.LogUtil;
-
-import java.util.concurrent.Callable;
 
 /**
  * Created by Carrie on 2018/3/27.
@@ -115,7 +112,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             }
                         });
                     }
-                })
+                }).allowMainThreadQueries()
                 .build();
     }
 

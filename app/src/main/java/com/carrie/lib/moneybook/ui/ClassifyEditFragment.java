@@ -1,26 +1,23 @@
 package com.carrie.lib.moneybook.ui;
 
-import android.arch.lifecycle.ViewModelProvider;
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.carrie.lib.moneybook.R;
 import com.carrie.lib.moneybook.databinding.FragmentClassifyEditBinding;
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
 import com.carrie.lib.moneybook.utils.LogUtil;
 import com.carrie.lib.moneybook.viewmodel.ClassifyViewModel;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Carrie on 2018/3/29.
@@ -30,15 +27,14 @@ import java.util.List;
 public class ClassifyEditFragment extends DialogFragment {
 
     private ClassifyViewModel viewModel;
-    private Spinner spinner;
+    private FragmentClassifyEditBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        FragmentClassifyEditBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_classify_edit, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_classify_edit, container, false);
         viewModel = ViewModelProviders.of(getActivity()).get(ClassifyViewModel.class);
         binding.setViewModel(viewModel);
-        spinner = binding.spinnerAccount;
         return binding.getRoot();
     }
 
@@ -46,27 +42,83 @@ public class ClassifyEditFragment extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Bundle bundle = getArguments();
-        List<ClassifyEntity> list = bundle.getParcelableArrayList("list");
+        selectParent();
+        setOk();
+        setCancel();
+    }
 
+    private void selectParent() {
+        binding.selectParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[] items = viewModel.getParentClassifies();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.select_parent)
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-        if(viewModel.getClassifies()==null){
-            LogUtil.i("ClassifyEditFragment","viewModel.getClassifies()==null");
-        }else{
-            LogUtil.i("ClassifyEditFragment","viewModel.getClassifies()!=null");
+                                LogUtil.i("selectParent", "items[i]=" + items[i]);
+                                binding.selectParent.setText(items[i]);
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
+            }
+        });
+    }
 
-          if(  viewModel.getClassifies().getValue()==null){
-              LogUtil.i("ClassifyEditFragment","viewModel.getClassifies().getValue()==null");
-          }else{
-              LogUtil.i("ClassifyEditFragment","viewModel.getClassifies().getValue()!=null: "+viewModel.getClassifies().getValue().size());
-          }
+    private void setOk() {
+        binding.ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(binding.etName.getText().toString().trim())) {
+                    Toast.makeText(getActivity(), getString(R.string.toast_name_not_null), Toast.LENGTH_SHORT).show();
+                    binding.etName.requestFocus();
+                    return;
+                }
 
-        }
+                if (TextUtils.isEmpty(binding.selectParent.getText().toString().trim())) {
+                    Toast.makeText(getActivity(), getString(R.string.toast_parent_not_null), Toast.LENGTH_SHORT).show();
+                    binding.selectParent.requestFocus();
+                    return;
+                }
 
+                if (viewModel.isClassifyExisted(binding.etName.getText().toString().trim())) {
+                    Toast.makeText(getActivity(), getString(R.string.toast_name_must_unique), Toast.LENGTH_LONG).show();
+                    binding.etName.requestFocus();
+                    return;
+                }
 
-        spinner.setPrompt(getString(R.string.nav_classify));
-        SpinnerAdapter adapter = new ArrayAdapter<>(getContext().getApplicationContext(),android.R.layout.simple_list_item_1, viewModel.getParentClassifies());
-        spinner.setAdapter(adapter);
+                ClassifyEntity entity = new ClassifyEntity();
+                entity.setClassify(binding.etName.getText().toString().trim());
+                entity.isParent = !viewModel.isSwithLeft.get();
+                if(entity.isParent){
+                    if(TextUtils.isEmpty(binding.etBudget.getText().toString().trim())){
+                        entity.budget = 0.00;
+                    }else{
+                        entity.budget = Double.valueOf(binding.etBudget.getText().toString().trim());
+                    }
+                }
+                viewModel.insertItem(entity);
+                dismiss();
 
+                LogUtil.i("setOk","insert success.");
+
+            }
+        });
+    }
+
+    private void setCancel() {
+        binding.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
     }
 }

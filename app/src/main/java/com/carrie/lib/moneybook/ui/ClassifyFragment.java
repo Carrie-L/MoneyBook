@@ -4,10 +4,8 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,11 +65,6 @@ public class ClassifyFragment extends Fragment implements ItemClickCallback {
 
                 ClassifyEditFragment editFragment = new ClassifyEditFragment();
                 editFragment.show(transaction, "Dialog");
-
-                Bundle args = new Bundle();
-                args.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
-                editFragment.setArguments(args);
-
             }
         });
 

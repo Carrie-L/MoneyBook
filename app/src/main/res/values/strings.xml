@@ -11,6 +11,8 @@
     <string name="name">名称</string>
     <string name="parent">父</string>
     <string name="child">子</string>
+    <string name="select_parent">选择父类</string>
+    <string name="et_budget_hint">预算：0.00￥</string>
 
     <string name="nav_home">首页</string>
     <string name="nav_transaction">明细</string>
@@ -19,6 +21,10 @@
 
     <string name="cancel">取消</string>
     <string name="ok">OK</string>
+
+    <string name="toast_name_not_null">名称不能为空</string>
+    <string name="toast_parent_not_null">选择一个父类</string>
+    <string name="toast_name_must_unique">名称已经存在</string>
 
 
 </resources>

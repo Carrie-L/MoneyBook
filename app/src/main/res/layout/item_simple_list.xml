@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="obj"
+            type="com.carrie.lib.moneybook.model.SimpleList" />
+
+        <variable
+            name="callback"
+            type="com.carrie.lib.moneybook.ui.ItemClickCallback" />
+    </data>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:onClick="@{()->callback.onClick(obj)}"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@{obj.name}">
+
+    </TextView>
+
+</layout>

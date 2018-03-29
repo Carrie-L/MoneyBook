@@ -8,7 +8,6 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
-import com.carrie.lib.moneybook.model.Classify;
 
 import java.util.List;
 
@@ -36,4 +35,8 @@ public interface ClassifyDao {
 
     @Delete
     void deleteAll(ClassifyEntity... classifies);
+
+    @Query("select * from classify where classify = :classify")
+     boolean isClassifyExisted(String classify);
+
 }

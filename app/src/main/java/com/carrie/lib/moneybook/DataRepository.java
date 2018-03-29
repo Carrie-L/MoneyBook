@@ -1,12 +1,10 @@
 package com.carrie.lib.moneybook;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 
 import com.carrie.lib.moneybook.db.AppDatabase;
 import com.carrie.lib.moneybook.db.entity.ChargeEntity;
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
-import com.carrie.lib.moneybook.model.Charge;
 
 import java.util.List;
 
@@ -55,6 +53,16 @@ public class DataRepository {
 
     public List<ClassifyEntity> getParentClassifies(){
         return database.classifyDao().getParentClassifies();
+    }
+
+    //todo rewrite with LiveData and RxJava (run in background thread)
+    public boolean isClassifyExisted(String classify){
+        return database.classifyDao().isClassifyExisted(classify);
+    }
+
+
+    public void insertClassifyItem(ClassifyEntity entity){
+        database.classifyDao().insertItem(entity);
     }
 
 

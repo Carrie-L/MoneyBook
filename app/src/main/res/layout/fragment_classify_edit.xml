@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.carrie.lib.moneybook.viewmodel.ClassifyViewModel" />
@@ -12,12 +14,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="新增分类"
+            android:textSize="16sp" />
+
         <EditText
             android:id="@+id/et_name"
             style="@style/edit_text_style"
-            android:hint="@string/name"
-
-            />
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="16dp"
+            android:hint="@string/name" />
 
         <TextView
             android:id="@+id/tv_child"
@@ -48,14 +59,43 @@
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/iv_switch"
             android:text="@string/parent"
-            android:textColor="@{viewModel.isSwithLeft.get()?@color/textColorPrimary:@color/colorAccent}" />
+            android:textColor="@{viewModel.isSwithLeft.get()?@color/textColorPrimary:@color/colorPrimary}" />
+
+        <EditText
+            android:id="@+id/et_budget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/tv_parent"
+            android:hint="@string/et_budget_hint"
+            android:textColor="@color/light_green_500"
+            android:theme="@style/edit_text_theme"
+            android:visibility="@{viewModel.isSwithLeft?View.GONE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/select_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_switch"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/oral"
+            android:gravity="center"
+            android:hint="@string/select_parent"
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.isSwithLeft?View.VISIBLE:View.GONE}" />
 
         <TextView
             android:id="@+id/ok"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/select_parent"
             android:layout_margin="16dp"
             android:gravity="center_vertical"
             android:text="@string/ok"
@@ -71,14 +111,6 @@
             android:gravity="center_vertical"
             android:text="@android:string/cancel"
             android:textColor="@color/grey500" />
-
-        <Spinner
-            android:id="@+id/spinner_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/ok"
-            android:layout_below="@id/iv_switch"
-            android:layout_marginTop="16dp" />
 
 
     </RelativeLayout>
