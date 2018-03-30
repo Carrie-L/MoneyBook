@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 
 import com.carrie.lib.moneybook.R;
 import com.carrie.lib.moneybook.databinding.ItemSimpleListBinding;
+import com.carrie.lib.moneybook.model.Common;
 import com.carrie.lib.moneybook.model.SimpleList;
 import com.carrie.lib.moneybook.ui.ItemClickCallback;
+import com.carrie.lib.moneybook.ui.OnClickCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +21,17 @@ import java.util.List;
  */
 
 public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.SimpleViewHolder> {
-    private List<SimpleList> lists=new ArrayList<>();
-    private ItemClickCallback mCallback;
+    private List<? extends Common> lists = new ArrayList<>();
+    private OnClickCallback mCallback;
+    private Integer mFlag;
 
-    public SimpleListAdapter(List<SimpleList> lists, ItemClickCallback mCallback) {
+    public SimpleListAdapter(List<? extends Common> lists, OnClickCallback mCallback,Integer flag) {
         this.lists = lists;
         this.mCallback = mCallback;
+        this.mFlag = flag;
     }
 
-    public void setList(List<SimpleList> lists){
+    public void setList(List<? extends Common> lists) {
         this.lists = lists;
         notifyDataSetChanged();
     }
@@ -36,6 +40,7 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Si
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemSimpleListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_simple_list, parent, false);
         binding.setCallback(mCallback);
+        binding.setFlag(mFlag);
         return new SimpleViewHolder(binding);
     }
 

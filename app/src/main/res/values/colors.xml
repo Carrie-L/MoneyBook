@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00AA8D</color>
-    <color name="colorPrimaryDark">#008975</color>
-    <color name="colorPrimaryLight">#00BF9A</color>
+
+
+    <!-- Brown -->
+    <!--<color name="colorPrimary">#795548</color>-->
+    <!--<color name="colorPrimaryDark">#5D4037</color>-->
+    <!--<color name="colorPrimaryLight">#D7CCC8</color>-->
+
+    <!-- Grey -->
+    <!--<color name="colorPrimary">#9E9E9E</color>-->
+    <!--<color name="colorPrimaryDark">#616161</color>-->
+    <!--<color name="colorPrimaryLight">#F5F5F5</color>-->
+
+    <!-- Blue Grey  -->
+    <!--<color name="colorPrimary">#607D8B</color>-->
+    <!--<color name="colorPrimaryDark">#455A64</color>-->
+    <!--<color name="colorPrimaryLight">#CFD8DC</color>-->
+
+     <!-- LIME  -->
+    <!--<color name="colorPrimary">#CDDC39</color>-->
+    <!--<color name="colorPrimaryDark">#AFB42B</color>-->
+    <!--<color name="colorPrimaryLight">#F0F4C3</color>-->
+
+    <!--&lt;!&ndash; Green  &ndash;&gt;-->
+    <!--<color name="colorPrimary">#4CAF50</color>-->
+    <!--<color name="colorPrimaryDark">#388E3C</color>-->
+    <!--<color name="colorPrimaryLight">#C8E6C9</color>-->
+
+    <!-- Light Green  -->
+    <color name="colorPrimary">#8BC34A</color>
+    <color name="colorPrimaryDark">#689F38</color>
+    <color name="colorPrimaryLight">#DCEDC8</color>
+
+    <!-- Indigo  -->
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorPrimaryLight">#C5CAE9</color>-->
+
+
     <color name="colorAccent">#FF4081</color>
     <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="dividerColor">#BDBDBD</color>
 
 
     <color name="light_green_500">#8BC34A</color>

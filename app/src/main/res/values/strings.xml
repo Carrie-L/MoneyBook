@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">MoneyBook</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">MoneyBook</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+
+    <string name="nav_home">首页</string>
+    <string name="nav_transaction">明细</string>
+    <string name="nav_classify">消费类型</string>
+    <string name="nav_account">账户类型</string>
+
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
 
     <string name="pay">%s ￥</string>
     <string name="name">名称</string>
@@ -13,18 +20,19 @@
     <string name="child">子</string>
     <string name="select_parent">选择父类</string>
     <string name="et_budget_hint">预算：0.00￥</string>
-
-    <string name="nav_home">首页</string>
-    <string name="nav_transaction">明细</string>
-    <string name="nav_classify">消费类型</string>
-    <string name="nav_account">账户类型</string>
-
-    <string name="cancel">取消</string>
-    <string name="ok">OK</string>
+    <string name="add_classify">新增分类</string>
+    <string name="edit_classify">编辑分类</string>
 
     <string name="toast_name_not_null">名称不能为空</string>
     <string name="toast_parent_not_null">选择一个父类</string>
     <string name="toast_name_must_unique">名称已经存在</string>
+
+    <string name="delete_parent_classify_title">!! NOTICE !!</string>
+    <string name="delete_parent_classify_msg">删除父类，将删除底下所有子类和记录，是否继续？</string>
+    <string name="delete_parent_classify_yes">仍要删除</string>
+    <string name="delete_parent_classify_no">放弃</string>
+    <string name="delete_child_classify_title">DELETE</string>
+    <string name="delete_child_classify_msg">删除后，所有相关记录都会删除，是否继续？</string>
 
 
 </resources>

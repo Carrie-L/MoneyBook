@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="android.view.View" />
 
         <variable
             name="viewModel"
             type="com.carrie.lib.moneybook.viewmodel.ClassifyViewModel" />
+        <variable
+            name="callback"
+            type="com.carrie.lib.moneybook.ui.OnClickCallback"/>
     </data>
 
     <RelativeLayout
@@ -20,25 +23,40 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="新增分类"
-            android:textSize="16sp" />
+            android:text="@{viewModel.isAddMode?@string/add_classify:@string/edit_classify}"
+            android:textSize="18sp" />
 
-        <EditText
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:tint="@color/textColorSecondary"
+          android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:visibility="@{viewModel.isAddMode?View.GONE:View.VISIBLE}"
+            android:onClick="@{()->callback.onClick(null,-1)}"
+            />
+
+        <com.carrie.lib.moneybook.ui.view.EditTextView
             android:id="@+id/et_name"
             style="@style/edit_text_style"
             android:layout_below="@id/tv_title"
             android:layout_marginTop="16dp"
-            android:hint="@string/name" />
+            app:hint="@string/name"
+            android:text="@={viewModel.mClassifyName}"
+            />
 
         <TextView
             android:id="@+id/tv_child"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@id/et_name"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:text="@string/child"
-            android:textColor="@{viewModel.isSwithLeft.get()?@color/colorAccent:@color/textColorPrimary}" />
+            android:textColor="@{viewModel.isSwitchLeft.get()?@color/colorAccent:@color/textColorSecondary}" />
 
         <ImageView
             android:id="@+id/iv_switch"
@@ -46,56 +64,58 @@
             android:layout_height="40dp"
             android:layout_below="@id/et_name"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/tv_child"
-            android:onClick="@{()->viewModel.onSwitchClick()}"
-            android:src="@{viewModel.isSwithLeft.get()?@drawable/ic_switch_left:@drawable/ic_switch_right}" />
+            android:background="@{viewModel.isSwitchLeft.get()?@drawable/ic_switch_left_svg:viewModel.tintDrawable.get()}"
+            android:onClick="@{()->viewModel.onSwitchClick()}" />
 
         <TextView
             android:id="@+id/tv_parent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignTop="@id/tv_child"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/iv_switch"
+            android:gravity="center_vertical"
             android:text="@string/parent"
-            android:textColor="@{viewModel.isSwithLeft.get()?@color/textColorPrimary:@color/colorPrimary}" />
+            android:textColor="@{viewModel.isSwitchLeft.get()?@color/textColorSecondary:@color/colorPrimary}" />
 
-        <EditText
+        <com.carrie.lib.moneybook.ui.view.EditTextView
             android:id="@+id/et_budget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tv_parent"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/tv_parent"
-            android:hint="@string/et_budget_hint"
-            android:textColor="@color/light_green_500"
+            android:inputType="numberDecimal"
             android:theme="@style/edit_text_theme"
-            android:visibility="@{viewModel.isSwithLeft?View.GONE:View.VISIBLE}" />
+            app:tintColor="@color/light_green_500"
+            android:text="@={viewModel.mBudget}"
+            android:visibility="@{viewModel.isSwitchLeft?View.GONE:View.VISIBLE}"
+            app:hint="@string/et_budget_hint" />
 
         <TextView
             android:id="@+id/select_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_switch"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_margin="16dp"
+            android:layout_alignBaseline="@id/tv_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/oral"
             android:gravity="center"
             android:hint="@string/select_parent"
-            android:textColorHint="#fff"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:visibility="@{viewModel.isSwithLeft?View.VISIBLE:View.GONE}" />
+            android:textColorHint="#fff"
+            android:text="@={viewModel.mParentName}"
+            android:visibility="@{viewModel.isSwitchLeft?View.VISIBLE:View.GONE}" />
 
         <TextView
             android:id="@+id/ok"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/select_parent"
+            android:layout_below="@id/tv_child"
             android:layout_margin="16dp"
             android:gravity="center_vertical"
             android:text="@string/ok"
@@ -110,7 +130,7 @@
             android:layout_toStartOf="@id/ok"
             android:gravity="center_vertical"
             android:text="@android:string/cancel"
-            android:textColor="@color/grey500" />
+            android:textColor="@color/textColorSecondary" />
 
 
     </RelativeLayout>

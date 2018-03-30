@@ -11,9 +11,8 @@ import com.carrie.lib.moneybook.BR;
 import com.carrie.lib.moneybook.R;
 import com.carrie.lib.moneybook.databinding.ItemClassifyBinding;
 import com.carrie.lib.moneybook.databinding.ItemClassifyParentBinding;
-import com.carrie.lib.moneybook.model.Classify;
+import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
 import com.carrie.lib.moneybook.ui.ItemClickCallback;
-import com.carrie.lib.moneybook.utils.LogUtil;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
     private static final String TAG = "ClassifyAdapter";
     private ItemClickCallback mCallback;
 
-    private List<? extends Classify> mClassifies;
+    private List<ClassifyEntity> mClassifies;
 
     private static final Integer TYPE_PARENT = 0;
     private static final Integer TYPE_CHILD = 1;
@@ -34,7 +33,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
         this.mCallback = mCallback;
     }
 
-    public void setClassifies(final List<? extends Classify> list) {
+    public void setClassifies(final List<ClassifyEntity> list) {
         if (mClassifies == null) {
             mClassifies = list;
             notifyItemRangeInserted(0, list.size());
@@ -57,8 +56,8 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    Classify newClassify = list.get(newItemPosition);
-                    Classify oldClassify = mClassifies.get(oldItemPosition);
+                    ClassifyEntity newClassify = list.get(newItemPosition);
+                    ClassifyEntity oldClassify = mClassifies.get(oldItemPosition);
                     return newClassify.getClassify().equals(oldClassify.getClassify());
                 }
             });
@@ -78,7 +77,6 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
             binding.setCallback(mCallback);
             return new ClassifyViewHolder(binding);
         }
-
     }
 
     @Override
@@ -93,7 +91,6 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
     @Override
     public void onBindViewHolder(ClassifyViewHolder holder, int position) {
         holder.binding.setVariable(BR.obj,mClassifies.get(position));
-//        ((ItemClassifyBinding) holder.binding).setObj(mClassifies.get(position));
         holder.binding.executePendingBindings();
     }
 
@@ -105,7 +102,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.Classi
     static class ClassifyViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 
-        public ClassifyViewHolder(ViewDataBinding binding) {
+        ClassifyViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

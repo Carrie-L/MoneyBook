@@ -7,12 +7,14 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableDouble;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.carrie.lib.moneybook.model.Classify;
 import com.carrie.lib.moneybook.model.ClassifyParent;
+import com.carrie.lib.moneybook.model.Common;
 
 /**
  * Created by Carrie on 2018/3/27.
@@ -21,7 +23,7 @@ import com.carrie.lib.moneybook.model.ClassifyParent;
 @Entity(tableName = "classify")
 //        foreignKeys = @ForeignKey(entity = ClassifyParentEntity.class, parentColumns = "id", childColumns = "parentId", onDelete = ForeignKey.CASCADE),
 //        indices = @Index(value = "parentId")
-public class ClassifyEntity implements Classify, Parcelable {
+public class ClassifyEntity implements Common, Parcelable {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -34,16 +36,18 @@ public class ClassifyEntity implements Classify, Parcelable {
 
     public double budget;
 
+    @Ignore
+    public final ObservableBoolean isSelected = new ObservableBoolean();
 
 
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
-    public int getParentId() {
-        return parentId;
+    public String getName() {
+        return classify;
     }
 
     @NonNull
@@ -51,21 +55,13 @@ public class ClassifyEntity implements Classify, Parcelable {
         return classify;
     }
 
-    @Override
     public boolean isParent() {
         return isParent;
     }
 
-    @Override
-    public double getBudget() {
-        return budget;
-    }
-
-
     public void setClassify(@NonNull String classify) {
         this.classify = classify;
     }
-
 
     @Override
     public int describeContents() {
@@ -101,4 +97,15 @@ public class ClassifyEntity implements Classify, Parcelable {
             return new ClassifyEntity[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ClassifyEntity{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", classify='" + classify + '\'' +
+                ", isParent=" + isParent +
+                ", budget=" + budget +
+                '}';
+    }
 }

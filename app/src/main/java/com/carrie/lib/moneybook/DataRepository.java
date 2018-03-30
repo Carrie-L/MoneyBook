@@ -3,10 +3,14 @@ package com.carrie.lib.moneybook;
 import android.arch.lifecycle.LiveData;
 
 import com.carrie.lib.moneybook.db.AppDatabase;
+import com.carrie.lib.moneybook.db.entity.AccountEntity;
 import com.carrie.lib.moneybook.db.entity.ChargeEntity;
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
+import com.carrie.lib.moneybook.model.Account;
 
 import java.util.List;
+
+import static com.carrie.lib.moneybook.utils.AppUtils.logListString;
 
 /**
  * Created by Carrie on 2018/3/27.
@@ -65,6 +69,35 @@ public class DataRepository {
         database.classifyDao().insertItem(entity);
     }
 
+    public void updateClassifyItem(ClassifyEntity entity){
+        database.classifyDao().updateItem(entity);
+    }
+
+    public String getParentName(int parentId){
+       return database.classifyDao().getParentName(parentId);
+    }
+
+    /**
+     *  当父类转为子类时，迁移旗下所有子类到新的父类中。
+     *  @param originalParentId 原父类parentId
+     */
+    public void migrateChildClassifies(int originalParentId,int newId){
+     database.classifyDao().updateItems(originalParentId,newId);
+    }
+
+
+    /*  Account  */
+    public List<AccountEntity> getAccounts(){
+        return database.accountDao().getAccounts();
+    }
+
+    public void deleteItem(ClassifyEntity entity){
+        database.classifyDao().deleteItem(entity);
+    }
+
+    public void deleteItems(int parentId){
+        database.classifyDao().deleteItems(parentId);
+    }
 
 
 

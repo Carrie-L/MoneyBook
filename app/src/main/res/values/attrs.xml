@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="EditTextView">
+        <attr name="textHintColor" format="color" />
+        <attr name="textHintSize" format="integer" />
+        <attr name="hint" format="string" />
+        <attr name="drawableRight" format="reference" />
+        <attr name="drawableLeft" format="reference" />
+        <attr name="tintColor" format="color" />
+        <attr name="textColor" format="color" />
+
+    </declare-styleable>
+
+
+</resources>

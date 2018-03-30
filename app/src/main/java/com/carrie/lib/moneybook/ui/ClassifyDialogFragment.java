@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Carrie on 2018/3/28.
  */
 
-public class ClassifyDialogFragment extends DialogFragment implements ItemClickCallback{
+public class ClassifyDialogFragment extends DialogFragment implements ItemClickCallback<ClassifyEntity> {
     private static final String TAG = "ClassifyDialogFragment";
 
     private String title;
@@ -35,12 +35,12 @@ public class ClassifyDialogFragment extends DialogFragment implements ItemClickC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View   view = inflater.inflate(R.layout.dialog_classify,container,false);
+        View view = inflater.inflate(R.layout.dialog_classify, container, false);
 
-     TextView textView = view.findViewById(R.id.tv_title);
-     if(savedInstanceState!=null){
-         textView.setText(savedInstanceState.getString("title"));
-     }
+        TextView textView = view.findViewById(R.id.tv_title);
+        if (savedInstanceState != null) {
+            textView.setText(savedInstanceState.getString("title"));
+        }
 
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -50,12 +50,12 @@ public class ClassifyDialogFragment extends DialogFragment implements ItemClickC
         adapter = new ClassifyAdapter(this);
         recyclerView.setAdapter(adapter);
 
-       view.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               dismiss();
-           }
-       });
+        view.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         return view;
     }
 
@@ -75,14 +75,15 @@ public class ClassifyDialogFragment extends DialogFragment implements ItemClickC
     }
 
     private OnClickCallback mCallback;
-    public void setOnClickCallback(OnClickCallback callback){
+
+    public void setOnClickCallback(OnClickCallback callback) {
         this.mCallback = callback;
     }
 
+
     @Override
-    public <T> void onClick(T t) {
-        Classify entity = (Classify) t;
-        mCallback.onClick(entity.getClassify(),101);
+    public void onItemClick(ClassifyEntity entity, int flag) {
+        mCallback.onClick(entity.getClassify(), 101);
         dismiss();
     }
 }

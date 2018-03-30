@@ -2,22 +2,24 @@
 <layout>
 
     <data>
-
+        <variable
+            name="flag"
+            type="Integer"/>
         <variable
             name="obj"
-            type="com.carrie.lib.moneybook.model.SimpleList" />
+            type="com.carrie.lib.moneybook.model.Common" />
 
         <variable
             name="callback"
-            type="com.carrie.lib.moneybook.ui.ItemClickCallback" />
+            type="com.carrie.lib.moneybook.ui.OnClickCallback" />
     </data>
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tv_name"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:onClick="@{()->callback.onClick(obj)}"
+        android:onClick="@{()->callback.onClick(obj,flag)}"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="@{obj.name}">

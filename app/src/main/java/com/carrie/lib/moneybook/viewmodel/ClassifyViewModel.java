@@ -4,14 +4,22 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.databinding.InverseMethod;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableDouble;
+import android.databinding.ObservableField;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.carrie.lib.moneybook.BasicApp;
 import com.carrie.lib.moneybook.DataRepository;
 import com.carrie.lib.moneybook.db.entity.ClassifyEntity;
+import com.carrie.lib.moneybook.ui.ClassifyEditFragment;
+import com.carrie.lib.moneybook.ui.OnClickCallback;
+import com.carrie.lib.moneybook.utils.AppUtils;
 import com.carrie.lib.moneybook.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -25,15 +33,25 @@ public class ClassifyViewModel extends AndroidViewModel {
     private static final String TAG = "ClassifyViewModel";
     private final MediatorLiveData<List<ClassifyEntity>> mObservableClassifies;
     private DataRepository mDataRepository;
-
-    //-----      ClassifyEditFragment                    -----
-    public final ObservableBoolean isSwithLeft = new ObservableBoolean(true);
     private final LiveData<List<ClassifyEntity>> classifies;
+
+
+    /*-----      ClassifyEditFragment                    -----*/
+    /**  true: 打开左边开关; false，右边  */
+    public final ObservableBoolean isSwitchLeft = new ObservableBoolean(true);
+    /**  true: add ; false: edit */
+    public final ObservableBoolean isAddMode = new ObservableBoolean(true);
+    /**  给 switch 开关着色用的 */
+    public final ObservableField<Drawable> tintDrawable=new ObservableField<>();
+
+    public final ObservableField<String> mClassifyName = new ObservableField<>();
+    public final ObservableField<String> mParentName = new ObservableField<>();
+    public final ObservableField<String> mBudget = new ObservableField<>();
+    /*-----      --------------------                   -----*/
 
     public ClassifyViewModel(@NonNull Application application) {
         super(application);
         mDataRepository = ((BasicApp) application).getRepository();
-
 
         mObservableClassifies = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
@@ -59,19 +77,29 @@ public class ClassifyViewModel extends AndroidViewModel {
         return mObservableClassifies;
     }
 
+   private MutableLiveData<ClassifyEntity> mObservableEntity;
+    public void setIsSelected(){
+        mObservableEntity=new MutableLiveData<>();
+//        mObservableEntity.postValue();
+    }
 
+
+    /*-----      ClassifyEditFragment                    -----*/
     public void onSwitchClick() {
-        isSwithLeft.set(!isSwithLeft.get());
+        isSwitchLeft.set(!isSwitchLeft.get());
     }
 
     public boolean isClassifyExisted(String newClassify) {
-        boolean isClassifyExisted= mDataRepository.isClassifyExisted(newClassify);
-        LogUtil.i(TAG,"isClassifyExisted="+isClassifyExisted);
-        return isClassifyExisted;
+        return mDataRepository.isClassifyExisted(newClassify);
     }
 
-    public void insertItem(ClassifyEntity entity){
-        mDataRepository.insertClassifyItem(entity);
+    public void insertOrUpdateItem(ClassifyEntity entity){
+        if(isAddMode.get()){
+            mDataRepository.insertClassifyItem(entity);
+        }else{
+            mDataRepository.updateClassifyItem(entity);
+        }
+
     }
 
     public List<ClassifyEntity> getParentClassifies2() {
@@ -84,20 +112,46 @@ public class ClassifyViewModel extends AndroidViewModel {
                 }
             }
         }
-        LogUtil.i(TAG, "getParentClassifies:" + list.size());
         return list;
     }
 
-    public String[] getParentClassifies() {
-        int size = mObservableClassifies.getValue().size();
-        ArrayList<String> items = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            if (mObservableClassifies.getValue().get(i).isParent) {
-                items.add(mObservableClassifies.getValue().get(i).getClassify());
-            }
-        }
-        return items.toArray(new String[0]);
+    public String getParentName(int parentId){
+      return   mDataRepository.getParentName(parentId);
     }
+
+    public void migrateChildClassifies(int originalParentId,int newId){
+        mDataRepository.migrateChildClassifies(originalParentId,newId);
+    }
+
+    public double getBudget(){
+        return Double.parseDouble(mBudget.get()==null?"0.00":mBudget.get());
+    }
+
+     /*-----      --------------------                   -----*/
+
+    public boolean getMode(){
+        return isAddMode.get();
+    }
+
+    public void deleteItem(ClassifyEntity entity){
+        mDataRepository.deleteItem(entity);
+    }
+
+    public void deleteItems(int parentId){
+        mDataRepository.deleteItems(parentId);
+    }
+
+    public void resetAllData(){
+        isSwitchLeft.set(true);
+        mClassifyName.set("");
+        mParentName.set("");
+        mBudget.set("");
+    }
+
+
+
+
+
 
 
 }

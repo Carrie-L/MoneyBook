@@ -6,7 +6,7 @@ package com.carrie.lib.moneybook.ui;
 
 public interface OnClickCallback {
 
-  <T>  void onClick(T object,int flag);
+    <T>  void onClick(T object,Integer flag);
 
 
 

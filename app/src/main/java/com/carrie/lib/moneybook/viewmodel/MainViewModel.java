@@ -8,9 +8,13 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.carrie.lib.moneybook.BasicApp;
+import com.carrie.lib.moneybook.DataRepository;
+import com.carrie.lib.moneybook.db.entity.AccountEntity;
 import com.carrie.lib.moneybook.ui.OnClickCallback;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Carrie on 2018/3/27.
@@ -21,15 +25,11 @@ public class MainViewModel extends AndroidViewModel {
     public final ObservableBoolean isCardViewShow = new ObservableBoolean(true);
     public final ObservableField<String> date = new ObservableField<>(new Date().toString());
     public final ObservableField<String> payMoney = new ObservableField<>("0.00");
-
-    private OnClickCallback mClickCallback;
-    public void setOnClickCallback(OnClickCallback callback){
-        this.mClickCallback = callback;
-    }
-
+    private DataRepository mDataRepository;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
+        mDataRepository = ((BasicApp)application).getRepository();
     }
 
     public void onCardViewShow(boolean bool) {
@@ -37,19 +37,14 @@ public class MainViewModel extends AndroidViewModel {
         isCardViewShow.set(bool);
     }
 
-    public void onClassifyClick(){
-       mClickCallback.onClick(null,1);
-
-
+    public List<AccountEntity> getAccounts(){
+        return mDataRepository.getAccounts();
     }
 
-    public void onAccountClick(){
 
-    }
 
-    public void onDateClick(){
 
-    }
+
 
 
 }
